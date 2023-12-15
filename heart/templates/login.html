@@ -18,12 +18,13 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<h3 class="mb-4 text-center">Login</h3>
-		      	<form action="#" class="signin-form">
+		      	<form method="POST" class="signin-form">
+					{% csrf_token %}
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Email" required>
+		      			<input name ="email" type="text" class="form-control" placeholder="Email" required>
 		      		</div>
 	            <div class="form-group">
-	              <input id="password-field" type="password" class="form-control" placeholder="Password" required>
+	              <input name="password" id="password-field" type="password" class="form-control" placeholder="Password" required>
 	              <span class="fa fa-fw field-icon toggle-password"></span>
 	            </div>
 	            <div class="form-group">

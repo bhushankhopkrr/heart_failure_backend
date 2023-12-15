@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Person
+from .passwords import hash_pass,verify_pass
+
+
 # Create your views here.
-from .passwords import hash_pass
 
 
 def index(request):
@@ -12,12 +14,18 @@ def index(request):
 def register(request):
     if request.method == 'POST':
         form_data = request.POST
-        passphrase_bytes = form_data["password"].encode("utf-8")
-        hashed_password = hash_pass(passphrase_bytes)
-        Person.objects.create(email=form_data["email"], name=form_data["name"], passphrase= hashed_password)
+        hashed_pass = hash_pass(form_data["password"])
+        Person.objects.create(email=form_data["email"], name=form_data["name"], passphrase=hashed_pass)
 
     return render(request, "register.html")
 
 
 def login(request):
+    if request.method == 'POST':
+        login_data = request.POST
+        stored_data = Person.objects.filter(email=login_data["email"]).first()
+        
+        if verify_pass(stored_data.passphrase, login_data["password"]):
+            print("SUCESSSSSSSSSS")
+
     return render(request, "login.html")
