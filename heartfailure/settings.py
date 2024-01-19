@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'heartbase',
         'USER': 'postgres',
-        'PASSWORD': 'greengoblin',
+        'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '5432',
     }
