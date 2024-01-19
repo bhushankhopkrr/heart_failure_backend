@@ -34,13 +34,6 @@
         max-width: 820px;
       }
 
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -98,8 +91,6 @@
                   </select>
                 </div>
 
-
-
                 <div class="col-sm-6">
                   <label class="form-label">Smoker</label>
                   <select class="form-select" id="Smoker" required>
@@ -116,6 +107,7 @@
                   </select>
                 </div>
 
+<!-- change the options in the selectbox according to dataset -->
                 <div class="col-sm-6">
                   <label class="form-label">Diabetic</label>
                   <select class="form-select" id="Diabetes" required>
@@ -134,7 +126,7 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">Difficulty Walking?</label>
-                  <select class="form-select" id="DiffWalk" required>
+                  <select class="form-select" name = "DiffWalk" id="DiffWalk" required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -145,6 +137,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    name="BMI"
                     id="BMI"
                     placeholder=""
                     value=""

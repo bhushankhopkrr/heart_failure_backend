@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Person
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Person, FormSubmission
 from .passwords import hash_pass, verify_pass
 
 
@@ -32,4 +32,12 @@ def login(request):
 
 
 def predict(request):
+    if request.method == "POST":
+        predictors = request.POST
+        print(predictors["BMI"])
     return render(request, "predict.html")
+
+def checkPredictions(request):
+    if request.metho == "POST":
+        predictors = request.POST
+        return HttpResponseRedirect(predictors["DiffWalk"])

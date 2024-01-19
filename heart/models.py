@@ -9,19 +9,16 @@ class Person(models.Model):
 
 class FormSubmission(models.Model):
     age = models.IntegerField()
-    sex = models.CharField()
     highBP = models.CharField()
     highChol = models.CharField()
     smoker = models.CharField()
     stroke = models.CharField()
     diabetic = models.CharField()
+    diffWalking = models.CharField()
+    mentalHlth = models.IntegerField()
+    genHlth = models.IntegerField()
+    PhysHlth = models.IntegerField()
     regEx = models.CharField()
-    alcoholic = models.CharField()
-    fruits = models.CharField()
-    veggies = models.CharField()
-    noDoc= models.CharField()
-    AnyHealthcare = models.CharField()
-    sex = models.CharField()
     bmi = models.IntegerField()
 
 
