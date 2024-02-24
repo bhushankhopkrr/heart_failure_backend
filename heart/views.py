@@ -5,8 +5,6 @@ from .passwords import hash_pass, verify_pass
 
 
 # Create your views here.
-
-
 def index(request):
     return render(request, "index.html", {"name": "blacklytning"})
 
@@ -30,14 +28,26 @@ def login(request):
 
     return render(request, "login.html")
 
-
 def predict(request):
+    predictors = {}
     if request.method == "POST":
         predictors = request.POST
-        print(predictors["BMI"])
-    return render(request, "predict.html")
+        # predictors = FormSubmission.objects.create(
+        #     age = predictors['age'],
+        #     highBP = predictors['highBP'],
+        #     highChol = predictors['highChol'],
+        #     smoker = predictors['smoker'],
+        #     stroke = predictors['stroke'],
+        #     diabetic = predictors['diabetic'],
+        #     diffWalk = predictors['diffWalk'],
+        #     mentalHlth = predictors['mentalHlth'],
+        #     genHlth = predictors['genHlth'],
+        #     physHlth = predictors['physHlth'],
+        #     regEx = predictors['regEx'],
+        #     bmi = predictors['bmi'],
+        # )
+        print(predictors)
+    return render(request, "predict.html", {'predictors': predictors})
 
-def checkPredictions(request):
-    if request.metho == "POST":
-        predictors = request.POST
-        return HttpResponseRedirect(predictors["DiffWalk"])
+def result(request):
+    return render(request, "result.html")

@@ -14,10 +14,10 @@ class FormSubmission(models.Model):
     smoker = models.CharField()
     stroke = models.CharField()
     diabetic = models.CharField()
-    diffWalking = models.CharField()
+    diffWalk = models.CharField()
     mentalHlth = models.IntegerField()
     genHlth = models.IntegerField()
-    PhysHlth = models.IntegerField()
+    physHlth = models.IntegerField()
     regEx = models.CharField()
     bmi = models.IntegerField()
 

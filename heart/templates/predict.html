@@ -61,7 +61,8 @@
 
         <div class="row g-3">
           <div class="col-lg-12">
-            <form id="form1">
+            <form method = "POST" id="form1">
+              {% csrf_token %}
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label class="form-label">Age</label>
@@ -69,6 +70,7 @@
                     type="text"
                     class="form-control"
                     id="age"
+                    name="age"
                     placeholder="Years"
                     value=""
                     required
@@ -77,7 +79,7 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">High Blood Pressure</label>
-                  <select class="form-select" id="HighBP" required>
+                  <select class="form-select" id="highBP" name="highBP" required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -85,7 +87,7 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">High Cholestrol</label>
-                  <select class="form-select" id="HighChol" required>
+                  <select class="form-select" id="HighChol" name = "highChol" required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -93,7 +95,7 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">Smoker</label>
-                  <select class="form-select" id="Smoker" required>
+                  <select class="form-select" id="Smoker" name = "smoker" required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -101,16 +103,16 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">Had a stroke?</label>
-                  <select class="form-select" id="Stroke" required>
+                  <select class="form-select" id="Stroke" name = 'stroke' required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
 
-<!-- change the options in the selectbox according to dataset -->
+                <!-- change the options in the selectbox according to dataset -->
                 <div class="col-sm-6">
                   <label class="form-label">Diabetic</label>
-                  <select class="form-select" id="Diabetes" required>
+                  <select class="form-select" id="Diabetes" name = 'diabetic' required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -118,7 +120,8 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">Regular Exercise?</label>
-                  <select class="form-select" id="PhysActivity" required>
+                  <select class="form-select" id="PhysActivity" 
+                  name = 'regEx' required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -126,7 +129,7 @@
 
                 <div class="col-sm-6">
                   <label class="form-label">Difficulty Walking?</label>
-                  <select class="form-select" name = "DiffWalk" id="DiffWalk" required>
+                  <select class="form-select" name = "diffWalk" id="DiffWalk" required>
                     <option value="1" selected>Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -137,7 +140,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="BMI"
+                    name="bmi"
                     id="BMI"
                     placeholder=""
                     value=""
@@ -151,6 +154,7 @@
                     type="text"
                     class="form-control"
                     id="MentHlth"
+                    name = "mentalHlth"
                     placeholder=""
                     value=""
                     required
@@ -164,6 +168,7 @@
                     type="text"
                     class="form-control"
                     id="GenHlth"
+                    name = "genHlth"
                     placeholder=""
                     value=""
                     required
@@ -176,6 +181,7 @@
                     type="text"
                     class="form-control"
                     id="PhysHlth"
+                    name = "physHlth"
                     placeholder=""
                     value=""
                     required
@@ -186,16 +192,20 @@
 
               <button
                 class="w-100 btn btn-primary btn-lg"
-                onclick="run()"
                 type="submit"
               >
-                Analyze   <i class="bi bi-search"></i>
+              <a style = "text-decoration: none; color: white; "href = "result">Analyze</a>
+              <i class="bi bi-search"></i>
               </button>
             </form>
 
 
         </div>
       </main>
+
+      <div>
+        {{ predictors }}
+      </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
         <h6>Using Machine Learning</h6>
