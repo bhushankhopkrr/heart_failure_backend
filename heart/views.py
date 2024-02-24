@@ -1,7 +1,12 @@
 from django.shortcuts import render
+import numpy as np
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Person, FormSubmission
 from .passwords import hash_pass, verify_pass
+import pickle
+
+with open('lgbmclf.pkl', 'rb') as file:
+    classifier = pickle.load(file)
 
 
 # Create your views here.
@@ -29,9 +34,26 @@ def login(request):
     return render(request, "login.html")
 
 def predict(request):
-    predictors = {}
+    form_data_available = False
     if request.method == "POST":
-        predictors = request.POST
+        form_data= request.POST
+        form_data_available = True
+        form_data = dict(form_data)
+        predictors = np.array([
+            int(form_data['highBP'][0]),
+            int(form_data['highChol'][0]),
+            int(form_data['bmi'][0]),
+            int(form_data['smoker'][0]),
+            int(form_data['stroke'][0]),
+            int(form_data['diabetic'][0]),
+            int(form_data['regEx'][0]),
+            int(form_data['genHlth'][0]),
+            int(form_data['mentalHlth'][0]),
+            int(form_data['physHlth'][0]),
+            int(form_data['diffWalk'][0]),
+            int(form_data['age'][0]),
+        ]).reshape(-1, 12)
+        prediction = classifier.predict_proba(predictors)[0][1]
         # predictors = FormSubmission.objects.create(
         #     age = predictors['age'],
         #     highBP = predictors['highBP'],
@@ -46,8 +68,10 @@ def predict(request):
         #     regEx = predictors['regEx'],
         #     bmi = predictors['bmi'],
         # )
-        print(predictors)
-    return render(request, "predict.html", {'predictors': predictors})
-
-def result(request):
-    return render(request, "result.html")
+    if form_data_available:
+        return render(request, "predict.html",
+        { "prediction" : prediction,
+          "form_data_available" : form_data_available,  
+        })
+    else:
+        return render(request, "predict.html")
