@@ -34,10 +34,10 @@ def login(request):
     return render(request, "login.html")
 
 def predict(request):
-    form_data_available = False
+    prediction_made = False
     if request.method == "POST":
         form_data= request.POST
-        form_data_available = True
+        prediction_made = True
         form_data = dict(form_data)
         predictors = np.array([
             int(form_data['highBP'][0]),
@@ -68,10 +68,10 @@ def predict(request):
         #     regEx = predictors['regEx'],
         #     bmi = predictors['bmi'],
         # )
-    if form_data_available:
+    if prediction_made:
         return render(request, "predict.html",
         { "prediction" : prediction,
-          "form_data_available" : form_data_available,  
+          "prediction_made" : prediction_made,  
         })
     else:
         return render(request, "predict.html")
