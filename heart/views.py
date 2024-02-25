@@ -54,20 +54,28 @@ def predict(request):
             int(form_data['age'][0]),
         ]).reshape(-1, 12)
         prediction = classifier.predict_proba(predictors)[0][1]
-        # predictors = FormSubmission.objects.create(
-        #     age = predictors['age'],
-        #     highBP = predictors['highBP'],
-        #     highChol = predictors['highChol'],
-        #     smoker = predictors['smoker'],
-        #     stroke = predictors['stroke'],
-        #     diabetic = predictors['diabetic'],
-        #     diffWalk = predictors['diffWalk'],
-        #     mentalHlth = predictors['mentalHlth'],
-        #     genHlth = predictors['genHlth'],
-        #     physHlth = predictors['physHlth'],
-        #     regEx = predictors['regEx'],
-        #     bmi = predictors['bmi'],
-        # )
+        if prediction >= 0.75:
+            condition = "High Risk"
+        elif prediction <= 0.5:
+            condition = "Great Heart Health"
+        else:
+            condition = "Moderate Risk"
+        FormSubmission.objects.create(
+            highBP = int(form_data['highBP'][0]),
+            highChol = int(form_data['highChol'][0]),
+            bmi = int(form_data['bmi'][0]),
+            smoker = int(form_data['smoker'][0]),
+            stroke = int(form_data['stroke'][0]),
+            diabetic = int(form_data['diabetic'][0]),
+            regEx = int(form_data['regEx'][0]),
+            genHlth = int(form_data['genHlth'][0]),
+            mentalHlth = int(form_data['mentalHlth'][0]),
+            physHlth = int(form_data['physHlth'][0]),
+            diffWalk = int(form_data['diffWalk'][0]),
+            age = int(form_data['age'][0]),
+            prediction = prediction,
+            condition = condition,
+        )
     if prediction_made:
         return render(request, "predict.html",
         { "prediction" : prediction,

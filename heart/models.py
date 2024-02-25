@@ -9,16 +9,18 @@ class Person(models.Model):
 
 class FormSubmission(models.Model):
     age = models.IntegerField()
-    highBP = models.CharField()
-    highChol = models.CharField()
-    smoker = models.CharField()
-    stroke = models.CharField()
-    diabetic = models.CharField()
-    diffWalk = models.CharField()
+    highBP = models.IntegerField()
+    highChol = models.IntegerField()
+    smoker = models.IntegerField()
+    stroke = models.IntegerField()
+    diabetic = models.IntegerField()
+    diffWalk = models.IntegerField()
     mentalHlth = models.IntegerField()
     genHlth = models.IntegerField()
     physHlth = models.IntegerField()
-    regEx = models.CharField()
+    regEx = models.IntegerField()
     bmi = models.IntegerField()
+    prediction = models.FloatField()
+    condition = models.CharField()
 
 
