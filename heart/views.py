@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 import numpy as np
-from django.http import HttpResponse, HttpResponseRedirect
+# from django.http import HttpResponse, HttpResponseRedirect
 from .models import Person, FormSubmission
-from .passwords import hash_pass, verify_pass
+# from .passwords import hash_pass, verify_pass
 import pickle
 
 with open('lgbmclf.pkl', 'rb') as file:
     classifier = pickle.load(file)
-
 
 # Create your views here.
 def index(request):
@@ -17,22 +19,33 @@ def index(request):
 def register(request):
     if request.method == 'POST':
         form_data = request.POST
-        hashed_pass = hash_pass(form_data["password"])
-        Person.objects.create(email=form_data["email"], name=form_data["name"], passphrase=hashed_pass)
-
+        # hashed_pass = hash_pass(form_data["password"])
+        # Person.objects.create(email=form_data["email"], name=form_data["name"], passphrase=hashed_pass)
+        user = User.objects.create_user(email = form_data["email"], username = form_data["name"], password = form_data["password"])
+        user.save()
+        return redirect("/heart/login")
     return render(request, "register.html")
 
 
-def login(request):
+def login_page(request):
     if request.method == 'POST':
         login_data = request.POST
-        stored_data = Person.objects.filter(email=login_data["email"]).first()
-
-        if verify_pass(stored_data.passphrase, login_data["password"]):
-            print("SUCESSSSSSSSSS")
-
+        # stored_data = Person.objects.filter(email=login_data["email"]).first()
+        user = User.objects.filter(username = login_data['username']).first()
+        print(type(login_data['username']))
+        if user is not None:
+            user = authenticate(username = login_data["username"], password = login_data["password"])
+            if user is not None: 
+                login(request, user)
+                print("success")
+                return redirect("/heart/dashboard")
     return render(request, "login.html")
 
+def logout_page(request):
+    logout(request)
+    return redirect("/heart/login")
+
+@login_required
 def predict(request):
     prediction_made = False
     if request.method == "POST":
@@ -80,6 +93,11 @@ def predict(request):
         return render(request, "predict.html",
         { "prediction" : prediction,
           "prediction_made" : prediction_made,  
+          "username" : request.user,
         })
     else:
         return render(request, "predict.html")
+    
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
