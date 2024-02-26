@@ -40,6 +40,23 @@
           font-size: 3.5rem;
         }
       }
+
+      .btn{
+        font-weight: 500;
+        margin-top: 1.25rem;
+        margin-left: auto;
+        font-size: 1.2rem;
+        text-decoration: none;
+      }
+
+      .btn:hover{
+        background-color: lightgrey;
+      }
+
+      .nav-wrapper{
+        margin-bottom: 1.5rem;
+        border-bottom: 0.1rem solid #eee;
+      }
     </style>
 
   </head>
@@ -48,7 +65,7 @@
     <div class="container">
       <main>
         <div class="py-3 text-center">
-          <i class="bi bi-clipboard-check" style="font-size: 4rem"></i>
+          <i class="bi bi-clipboard-check" style="font-size: 4rem;"></i>
           <h2
             data-bs-toggle="tooltip"
             data-bs-placement="top"
@@ -56,8 +73,12 @@
           >
             Heart Failure Detection
           </h2>
-          <p class="lead">Please fill the form below.</p>
-        </div>
+          <p class="lead" style = "margin-bottom: 0;">Please fill the form below.</p>
+          </div>
+          <div class = "nav-wrapper text-center">
+            <a class = "btn" href = "dashboard">Dashboard</a>
+            <a class = "btn" href = "logout">Logout</a>
+          </div>
 
         <div class="row g-3">
           <div class="col-lg-12">
@@ -67,44 +88,46 @@
                 <div class="col-sm-6">
                   <label class="form-label">Age</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="age"
                     name="age"
                     placeholder="Years"
                     value=""
+                    max = "100"
+                    min = "18"
                     required
                   />
                 </div>
 
                 <div class="col-sm-6">
                   <label class="form-label">High Blood Pressure</label>
-                  <select class="form-select" id="highBP" name="highBP" required>
-                    <option value="1" selected>Yes</option>
+                  <select class="form-select" id="highBP" name="highBP" placheholder = "High Blood Pressure?" required>
+                    <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
 
                 <div class="col-sm-6">
                   <label class="form-label">High Cholestrol</label>
-                  <select class="form-select" id="HighChol" name = "highChol" required>
-                    <option value="1" selected>Yes</option>
+                  <select class="form-select" id="HighChol" name = "highChol" placeholder = "High Cholestrol?" required>
+                    <option value="1" >Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
 
                 <div class="col-sm-6">
                   <label class="form-label">Smoker</label>
-                  <select class="form-select" id="Smoker" name = "smoker" required>
-                    <option value="1" selected>Yes</option>
+                  <select class="form-select" id="Smoker" name = "smoker" placeholder = "Smoker?" required>
+                    <option value="1" >Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
 
                 <div class="col-sm-6">
-                  <label class="form-label">Had a stroke?</label>
-                  <select class="form-select" id="Stroke" name = 'stroke' required>
-                    <option value="1" selected>Yes</option>
+                  <label class="form-label">Have you had a stroke?</label>
+                  <select class="form-select" id="Stroke" name = 'stroke' placeholder = "Had a stroke?" required>
+                    <option value="1" >Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
@@ -112,25 +135,26 @@
                 <!-- change the options in the selectbox according to dataset -->
                 <div class="col-sm-6">
                   <label class="form-label">Diabetic</label>
-                  <select class="form-select" id="Diabetes" name = 'diabetic' required>
-                    <option value="1" selected>Yes</option>
+                  <select class="form-select" id="Diabetes" name = 'diabetic' placeholder = "Diabetic?" required>
+                    <option value="2">Diabetic</option>
+                    <option value="1" >Pre-diabetic</option>
+                    <option value="0">Non-diabetic</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6">
+                  <label class="form-label">Do you exercise regularly?</label>
+                  <select class="form-select" id="PhysActivity" name = 'regEx' placeholder = "Regular Exercise?" 
+                  data-toggle = "tooltip">
+                    <option value="1" >Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
 
                 <div class="col-sm-6">
-                  <label class="form-label">Regular Exercise?</label>
-                  <select class="form-select" id="PhysActivity" 
-                  name = 'regEx' required>
-                    <option value="1" selected>Yes</option>
-                    <option value="0">No</option>
-                  </select>
-                </div>
-
-                <div class="col-sm-6">
-                  <label class="form-label">Difficulty Walking?</label>
-                  <select class="form-select" name = "diffWalk" id="DiffWalk" required>
-                    <option value="1" selected>Yes</option>
+                  <label class="form-label">Do you have Difficulty Walking?</label>
+                  <select class="form-select" name = "diffWalk" id="DiffWalk" placeholder = "Difficulty Walking" required>
+                    <option value="1" >Yes</option>
                     <option value="0">No</option>
                   </select>
                 </div>
@@ -138,52 +162,60 @@
                 <div class="col-sm-6">
                   <label class="form-label">BMI</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="bmi"
                     id="BMI"
-                    placeholder=""
+                    placeholder="BMI"
                     value=""
+                    max = "100"
+                    min = "12"
                     required
                   />
                 </div>
 
                 <div class="col-sm-6">
-                  <label class="form-label">Mental Health?</label>
+                  <label class="form-label">Days you had bad mental health? (previous month)</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="MentHlth"
                     name = "mentalHlth"
-                    placeholder=""
+                    placeholder="No. of Days"
                     value=""
+                    max = "31"
+                    min = "0"
                     required
                   />
                 </div>
                 
 
                 <div class="col-sm-6">
-                  <label class="form-label">General Health?</label>
+                  <label class="form-label">Rate your general health (1: excellent, 5: poor)</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="GenHlth"
                     name = "genHlth"
-                    placeholder=""
+                    placeholder="Rating"
                     value=""
+                    max = "5"
+                    min = "1"
                     required
                   />
                 </div>
 
                 <div class="col-sm-6">
-                  <label class="form-label">Physical Health?</label>
+                  <label class="form-label">Days you had bad physical health? (previous month)</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="PhysHlth"
                     name = "physHlth"
-                    placeholder=""
+                    placeholder="No. of Days"
                     value=""
+                    max = "31"
+                    min = "0"
                     required
                   />
                 </div>

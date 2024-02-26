@@ -8,8 +8,9 @@ import numpy as np
 from .models import FormSubmission
 # from .passwords import hash_pass, verify_pass
 import pickle
+import os
 
-with open('lgbmclf.pkl', 'rb') as file:
+with open("lgbmclf.pkl", 'rb') as file:
     classifier = pickle.load(file)
 
 # Create your views here.
@@ -52,6 +53,33 @@ def predict(request):
         form_data= request.POST
         prediction_made = True
         form_data = dict(form_data)
+        age = int(form_data['age'][0])
+        if age < 25:
+            age = 1
+        elif age < 30:
+            age = 2
+        elif age < 35:
+            age = 3
+        elif age < 40:
+            age = 4
+        elif age < 45:
+            age = 5
+        elif age < 50:
+            age = 6
+        elif age < 55:
+            age = 7
+        elif age < 60:
+            age = 8
+        elif age < 65:
+            age = 9
+        elif age < 70:
+            age = 10
+        elif age < 75:
+            age = 11
+        elif age < 80:
+            age = 12
+        else:
+            age = 13 
         predictors = np.array([
             int(form_data['highBP'][0]),
             int(form_data['highChol'][0]),
@@ -64,7 +92,7 @@ def predict(request):
             int(form_data['mentalHlth'][0]),
             int(form_data['physHlth'][0]),
             int(form_data['diffWalk'][0]),
-            int(form_data['age'][0]),
+            age
         ]).reshape(-1, 12)
         prediction = classifier.predict_proba(predictors)[0][1]
         if prediction >= 0.75:
@@ -89,8 +117,7 @@ def predict(request):
             mentalHlth = int(form_data['mentalHlth'][0]),
             physHlth = int(form_data['physHlth'][0]),
             diffWalk = int(form_data['diffWalk'][0]),
-            age = int(form_data['age'][0]),
-
+            age = age
         )
     if prediction_made:
         return render(request, "predict.html",
