@@ -33,7 +33,6 @@ def login_page(request):
         login_data = request.POST
         # stored_data = Person.objects.filter(email=login_data["email"]).first()
         user = User.objects.filter(username = login_data['username']).first()
-        print(type(login_data['username']))
         if user is not None:
             user = authenticate(username = login_data["username"], password = login_data["password"])
             if user is not None: 
@@ -104,4 +103,8 @@ def predict(request):
     
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html")
+    tests = FormSubmission.objects.filter(username = request.user).values()
+    if tests is None:
+        return render(request, "dashboard.html", {'no_tests' : "You haven't taken any tests yet"})
+    else:
+        return render(request, "dashboard.html", {'tests' : tests})

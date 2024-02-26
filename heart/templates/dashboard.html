@@ -44,19 +44,43 @@
       .btn:hover{
         background-color: lightgrey;
       }
+
+      .card{
+        padding: 1rem;
+        margin: 0.5rem;
+        border: 1px solid #999;
+        border-radius: 1rem;
+        width: 32%;
+      }
+
+      .wrapper{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
     </style>
 
   </head>
 
   <body class="bg-light">
     <div style = "display:flex; justify-content: space-between; align-items: center; padding: 0;margin: 0;border-bottom: 2px solid #eee">
-          <h2 style = "margin: 0; padding: 0;">Heart Failure Detection</h2>
+          <h2 style = "margin: 0; margin-left: 1.25rem; padding: 0;">Heart Failure Detection</h2>
           <div class = "navbar" style = "margin: 0; padding: 0;">
             <a class = "btn" href = "predict" style = "font-weight: 500;margin-top: 1.25rem;margin-left: auto; font-size: 1.2rem;text-decoration: none;
             color: black;">Predict</a>
             <a class = "btn" href = "logout" style = "font-weight: 500;margin-top: 1.25rem;margin-left: auto; font-size: 1.2rem;text-decoration: none;
             color: black;">Logout</a>
           </div>
+    </div>
+
+    <div class = "wrapper">
+    {% for test in tests %}
+      <div class = "card">
+        <h3>{{ test.condition }}</h3>
+        <p style = "margin: 0;">Test dated: {{ test.time }}</p>
+      </div>
+    {% endfor %}
     </div>
    </body>
 </html>
