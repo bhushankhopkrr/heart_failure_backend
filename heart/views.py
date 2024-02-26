@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
+from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import numpy as np
 # from django.http import HttpResponse, HttpResponseRedirect
-from .models import Person, FormSubmission
+from .models import FormSubmission
 # from .passwords import hash_pass, verify_pass
 import pickle
 
@@ -74,6 +75,10 @@ def predict(request):
         else:
             condition = "Moderate Risk"
         FormSubmission.objects.create(
+            username = request.user,
+            time = date.today().strftime('%d-%m-%Y'),
+            condition = condition,
+            prediction = prediction,
             highBP = int(form_data['highBP'][0]),
             highChol = int(form_data['highChol'][0]),
             bmi = int(form_data['bmi'][0]),
@@ -86,8 +91,7 @@ def predict(request):
             physHlth = int(form_data['physHlth'][0]),
             diffWalk = int(form_data['diffWalk'][0]),
             age = int(form_data['age'][0]),
-            prediction = prediction,
-            condition = condition,
+
         )
     if prediction_made:
         return render(request, "predict.html",

@@ -1,13 +1,15 @@
 from django.db import models
-
-
 # Create your models here.
-class Person(models.Model):
-    email = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
-    passphrase = models.CharField(max_length=500)
+# class Person(models.Model):
+#     email = models.CharField(max_length=200)
+#     name = models.CharField(max_length=200)
+#     passphrase = models.CharField(max_length=500)
 
 class FormSubmission(models.Model):
+    username = models.CharField()
+    time = models.CharField()
+    condition = models.CharField()
+    prediction = models.FloatField()
     age = models.IntegerField()
     highBP = models.IntegerField()
     highChol = models.IntegerField()
@@ -20,7 +22,5 @@ class FormSubmission(models.Model):
     physHlth = models.IntegerField()
     regEx = models.IntegerField()
     bmi = models.IntegerField()
-    prediction = models.FloatField()
-    condition = models.CharField()
 
 
