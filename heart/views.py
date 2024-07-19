@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 import numpy as np
 # from django.http import HttpResponse, HttpResponseRedirect
 from .models import FormSubmission
@@ -10,14 +11,15 @@ from .models import FormSubmission
 import pickle
 import os
 
-with open("lgbmclf.pkl", 'rb') as file:
+with open("heart/lgbmclf.pkl", 'rb') as file:
     classifier = pickle.load(file)
 
 # Create your views here.
+@csrf_exempt 
 def index(request):
     return render(request, "index.html", {"name": "blacklytning"})
 
-
+@csrf_exempt 
 def register(request):
     if request.method == 'POST':
         form_data = request.POST
@@ -29,23 +31,52 @@ def register(request):
     return render(request, "register.html")
 
 
+# def login_page(request):    
+#     error_message = None  
+#     if request.method == 'POST':
+#         login_data = request.POST
+#         # stored_data = Person.objects.filter(email=login_data["email"]).first()
+#         user = User.objects.filter(username = login_data['username']).first()
+#         if user is not None:
+#             user = authenticate(username = login_data["username"], password = login_data["password"])
+#             if user is not None: 
+#                 login(request, user)
+#                 print("success")
+#                 return redirect("/heart/dashboard")
+#             else:
+#                 error_message = "Invalid username or password."
+#         else:
+#             error_message = "Invalid username or password."
+#     return render(request, "login.html", {"error_message": error_message})
+@csrf_exempt 
 def login_page(request):
+    error_message = None
+    
     if request.method == 'POST':
         login_data = request.POST
-        # stored_data = Person.objects.filter(email=login_data["email"]).first()
-        user = User.objects.filter(username = login_data['username']).first()
-        if user is not None:
-            user = authenticate(username = login_data["username"], password = login_data["password"])
-            if user is not None: 
+        username = login_data.get('username')
+        password = login_data.get('password')
+        
+        # Check if username and password are provided
+        if not username or not password:
+            error_message = "Please provide both username and password."
+        else:
+            # Authenticate user
+            user = authenticate(username=username, password=password)
+            if user is not None:
                 login(request, user)
                 print("success")
                 return redirect("/heart/dashboard")
-    return render(request, "login.html")
-
+            else:
+                error_message = "Invalid username or password."
+    
+    return render(request, "login.html", {"error_message": error_message})
+@csrf_exempt 
 def logout_page(request):
     logout(request)
     return redirect("/heart/login")
 
+@csrf_exempt 
 @login_required
 def predict(request):
     prediction_made = False
@@ -127,7 +158,8 @@ def predict(request):
         })
     else:
         return render(request, "predict.html")
-    
+
+@csrf_exempt   
 @login_required
 def dashboard(request):
     tests = FormSubmission.objects.filter(username = request.user).values()

@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+NAME = os.getenv('NAME')  
+USER = os.getenv('USER') 
+PASSWORD = os.getenv('PASSWORD') 
+HOST = os.getenv('HOST') 
+PORT = os.getenv('PORT') 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,11 +88,11 @@ LOGIN_URL = "/heart/login"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'heartbase',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': f'{NAME}',
+        'USER': f'{USER}',
+        'PASSWORD': f'{PASSWORD}',
+        'HOST': f'{HOST}',
+        'PORT': f'{PORT}',
     }
 }
 
