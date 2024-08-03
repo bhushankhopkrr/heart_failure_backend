@@ -13,7 +13,7 @@ This project is a Django-based application named "HeartFailure". It includes a c
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/yourusername/heartfailure.git
+   git clone https://github.com/bhushankhopkrr/heartfailure.git
    cd heartfailure
 
 2. **Create a virtual environment:**
