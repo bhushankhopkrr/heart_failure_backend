@@ -233,17 +233,17 @@
 <div>
   {% if prediction_made == True %}
     {% if prediction >= 0.75 %}
-    <div style = "background-color: rgba(251, 3, 3, 0.4); color: red; border-radius: 1rem; margin-top: 2rem; padding: 2rem;">
+    <div style = "background-color: rgba(251, 3, 3, 0.748); color: rgb(255, 255, 255); border-radius: 1rem; margin-top: 2rem; padding: 2rem;">
       <h2>HIGH RISK</h2>
-      <h5 style = "font-family: Verdana, Geneva, Tahoma, sans-serif; line-height: 1.75rem;">Your lifestyle is not healthy.Your heart health indicates a high risk of cardiovascular issues, necessitating urgent lifestyle changes and medical intervention to address elevated blood pressure, cholesterol levels, and other risk factors for heart disease.</h5>
+      <h5 style = "font-family: Verdana, Geneva, Tahoma, sans-serif; line-height: 1.75rem;">Your lifestyle is not healthy. Your heart health indicates a high risk of cardiovascular issues, necessitating urgent lifestyle changes and medical intervention to address elevated blood pressure, cholesterol levels, and other risk factors for heart disease.</h5>
     </div>
     {% elif prediction <= 0.5 %}
-    <div style = "background-color: rgba(1, 120, 33, 0.4); color: rgb(5, 250, 70); border-radius: 1rem; margin-top: 2rem; padding: 2rem">
+    <div style = "background-color: rgba(1, 120, 33, 0.55); color: rgb(15, 74, 13); border-radius: 1rem; margin-top: 2rem; padding: 2rem">
       <h2>GREAT HEART HEALTH</h2>
       <h5 style = "font-family: Verdana, Geneva, Tahoma, sans-serif; line-height: 1.75rem;">Congratulations! Your heart health reflects optimal function with balanced cholesterol, strong cardiovascular performance, and regular exercise habits, promoting resilience against heart disease.</h5>
     </div>
     {% else %}
-    <div style = "background-color: rgba(251, 214, 3, 0.425); color: rgb(138, 124, 1); border-radius: 1rem; margin-top: 2rem; padding: 2rem">
+    <div style = "background-color: rgba(251, 214, 3, 0.633); color: rgb(63, 73, 20); border-radius: 1rem; margin-top: 2rem; padding: 2rem">
       <h2>MODERATE RISK</h2>
       <h5 style = "font-family: Verdana, Geneva, Tahoma, sans-serif; line-height: 1.75rem;">Your heart health shows moderate risk, suggesting the need for closer attention to factors like blood pressure, cholesterol levels, and exercise consistency to mitigate potential cardiovascular concerns.</h5>
     </div>
@@ -256,7 +256,7 @@
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
         <h6>Using Machine Learning</h6>
-        <h6 class="mb-1">&copy; 2023 - {{ username }}</h6>
+        <h6 class="mb-1">&copy; 2024 - z3nith, blapboi, bhushankhopkar</h6>
       </footer>
     </div>
 
